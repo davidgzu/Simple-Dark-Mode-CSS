@@ -1,6 +1,8 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
+  background: var(--very-pale-blue);
+  
 }
 
 :root {
@@ -20,6 +22,9 @@ body {
   --light-grayish-blue: hsl(227, 47%, 96%); /* Card BG */
   --dark-grayish-blue: hsl(228, 12%, 44%); /* Text */
   --very-dark-blue: hsl(230, 17%, 14%); /* Text */
+
+  /*Toggle Dark Mode */
+  --toggle: hsl(230, 22%, 74%);
 }
 
 /* Header */
@@ -40,7 +45,7 @@ h1 {
   color: var(--dark-grayish-blue);
   margin: 0.5em 0;
   font-weight: bold;
-  border-bottom: 2px solid var(--dark-grayish-blue);
+  border-bottom: 1px solid var(--dark-grayish-blue);
   padding-bottom: 1.5em;
 }
 
@@ -53,10 +58,55 @@ h1 {
   grid-row-gap: 25px;
 }
 
+/* Switch Dark Mode */
+.dark-mode {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1em;
+}
+
+.dark-mode-title{
+  color: var(--dark-grayish-blue);
+  font-weight: bold;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox:checked ~ .switch:before {
+  transform: translateX(0);
+}
+
+.switch {
+  height: 35px;
+  display: block;
+  border-radius: 17px;
+  background-image: linear-gradient(to right, var(--toggle-1), var(--toogle-2));
+  width: 70px;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 5px;
+  user-select: none;
+}
+
+.switch::before {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: var(--very-pale-blue);
+  border-radius: 50%;
+  transform: translateX(35px);
+  transition: 0.3s;
+  will-change: transform;
+}
+
 /* Top Cards */
 
 .top-cards {
   margin-top: -80px;
+  margin-bottom: 3em;
 }
 
 /* Cards*/
@@ -129,13 +179,21 @@ h1 {
 }
 
 .card-today {
-  color: var(--lime-green);
+  color: var(--very-dark-blue);
   font-size: 0.7em;
   font-weight: 700;
   margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.card-today.is-up {
+  color: var(--lime-green);
+}
+
+.card-today.is-danger {
+  color: var(--bright-red);
 }
 
 .card-today img {
@@ -145,7 +203,11 @@ h1 {
 /* overview */
 
 .overview {
-  margin-bottom: 500px;
+  padding-bottom: 2em;
+}
+
+.overview h2 {
+  color: var(--dark-grayish-blue);
 }
 
 .card-small {
@@ -186,6 +248,10 @@ h1 {
   font-weight: bold;
 }
 
+.card-small-percentage.is-danger {
+  color: var(--bright-red);
+}
+
 .card-small-percentage span {
   display: flex;
   align-items: center;
@@ -193,4 +259,80 @@ h1 {
 
 .card-small-percentage img {
   margin-right: 5px;
+}
+
+.is-dark-mode{
+  --very-pale-blue: hsl(232, 19%, 15%);
+  --light-grayish-blue: hsl(228, 28%, 20%);
+  --dark-grayish-blue: hsl(228, 34%, 66%);
+  --very-dark-blue: hsl(0, 0%, 100%);
+  --toggle-1: hsl(210, 78%, 56%);
+  --toogle-2: hsl(146, 68%, 55%);
+}
+
+.is-light-mode{
+  --very-pale-blue: hsl(0, 0%, 100%); /* BG) */
+  --very-pale-blue: hsl(225, 100%, 98%); /* Top BG Pattern */
+  --light-grayish-blue: hsl(227, 47%, 96%); /* Card BG */
+  --dark-grayish-blue: hsl(228, 12%, 44%); /* Text */
+  --very-dark-blue: hsl(230, 17%, 14%); /* Text */
+  --toggle-1: hsl(230, 22%, 74%);
+  --toogle-2: hsl(230, 22%, 74%);
+
+}
+
+@media screen and (min-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 25px;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
+  }
+
+  .header-grid{
+    display: grid;
+    grid-template-columns: 1fr 200px;
+  }
+
+  .header-total{
+    border: none;
+  }
+}
+
+/* Dark Mode */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: var(--very-dark-blue);
+  }
+
+  :root {
+    --white: hsl(230, 17%, 14%);
+    --very-pale-blue: hsl(232, 19%, 15%);
+    --light-grayish-blue: hsl(228, 28%, 20%);
+    --dark-grayish-blue: hsl(228, 34%, 66%);
+    --very-dark-blue: hsl(0, 0%, 100%);
+    --toggle-1: hsl(210, 78%, 56%);
+    --toogle-2: hsl(146, 68%, 55%);
+  }
+
+  .switch{
+    background-image: linear-gradient(to right, var(--toggle-1), var(--toogle-2));
+  }
 }
